@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:tickler/widgets/dialoge.dart';
+import 'package:valley_park_ticketing/widgets/dialoge.dart';
 import '../model/seats_model.dart';
 
 class Controller with ChangeNotifier {
   var data = List.generate(200, (index) => index + 1);
   String? selectedValue;
 
-  List<int> _paidSeats = [];
+  final List<int> _paidSeats = [];
 
   List<Seats> get seats {
     final noOfSelectedSeats = int.parse(selectedValue.toString());
 
-    return List.generate(noOfSelectedSeats,
-        (index) => Seats(seatNumber: index + 1, isPaid: false));
+    return List.generate(
+      noOfSelectedSeats,
+      (index) => Seats(seatNumber: index + 1, isPaid: false),
+    );
   }
 
   // clear seats
@@ -33,16 +35,17 @@ class Controller with ChangeNotifier {
       _paidSeats.add(seat.seatNumber);
     } else {
       showDialog(
-          context: context,
-          builder: (context) {
-            return CheckDialog(
-              onClick: () {
-                _paidSeats.remove(seat.seatNumber);
-                Navigator.of(context).pop();
-                notifyListeners();
-              },
-            );
-          });
+        context: context,
+        builder: (context) {
+          return CheckDialog(
+            onClick: () {
+              _paidSeats.remove(seat.seatNumber);
+              Navigator.of(context).pop();
+              notifyListeners();
+            },
+          );
+        },
+      );
     }
     notifyListeners();
   }

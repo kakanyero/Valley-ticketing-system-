@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class CheckDialog extends StatelessWidget {
   const CheckDialog({
-    Key? key,
+    super.key,
     required this.onClick,
-  }) : super(key: key);
+  });
   final Function onClick;
 
   @override
